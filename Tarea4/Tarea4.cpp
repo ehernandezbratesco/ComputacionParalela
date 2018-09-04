@@ -19,9 +19,9 @@ void MostrarMatriz(int Matriz[][9]){
 	}
 }
 
-void LlenarMatriz(char* entradargC,int Matriz[][9]){
+void LlenarMatriz(char* entradargc,int Matriz[][9]){
 	bool var=true,var2=true;
-	string entrada = entradargC;
+	string entrada = entradargc;
 	string token,token2,auxiliar;
 	int largo = entrada.length(), pos,n=0,pos2,aux;
 	int numero[2];
