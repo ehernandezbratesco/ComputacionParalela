@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -20,36 +19,32 @@ void MostrarMatriz(int Matriz[][9]){
 	}
 }
 
-void LlenarMatriz(char* entradargc,int Matriz[][9]){
+void LlenarMatriz(char* entradargC,int Matriz[][9]){
 	bool var=true,var2=true;
-	string input = entradargc;
+	string entrada = entradargC;
 	string token,token2,auxiliar;
-	int largo = input.length(), posicion,n=0,posicion2,aux;
+	int largo = entrada.length(), pos,n=0,pos2,aux;
 	int numero[2];
 	char delimitador = ']',delimitador2= ';';
 	while(n<largo){
-		cout << "... ..." <<endl;
-		posicion = input.find(delimitador);
-		if(posicion != -1 && var == true){
-			if(posicion == -1){
-				cout << "aca no esta entrando" <<endl;
+		pos = entrada.find(delimitador);
+		if(pos != -1 && var == true){
+			if(pos == -1){
 				var = false;
 			}
-			token = input.substr(1,posicion-1);
+			token = entrada.substr(1,pos-1);
 			auxiliar = token;
 			for(int i=0;i<3;i++){
 				if(i!=2){
-					posicion2= auxiliar.find(delimitador2);
-					token2 = auxiliar.substr(0,posicion2);
+					pos2= auxiliar.find(delimitador2);
+					token2 = auxiliar.substr(0,pos2);
 					aux = stoi(token2);
-					cout << "no estoy pasando por aca" <<endl;
 					numero[i] = aux;
-					auxiliar.erase(0,posicion2+1);
+					auxiliar.erase(0,pos2+1);
 				}else{
 					aux = stoi(auxiliar);
 					if(numero[0] >= 0 && numero[0] <= 9 && numero[1] >= 0 && numero[1] <= 9 && aux >=1 && aux <=9){
-						Matriz[numero[1]][numero[i]] = aux;
-						cout << "no hace esto en el else tampoco" <<endl;
+						Matriz[numero[1]][numero[0]] = aux;
 					}else{
 						cout<<"Ingrese valor en los rangos correctos"<<endl;
 						n=largo;
@@ -57,36 +52,35 @@ void LlenarMatriz(char* entradargc,int Matriz[][9]){
 					}
 				}
 			}
-			input.erase(0,posicion+1);
+			entrada.erase(0,pos+1);
 			n++;
 		}else{
 			n=largo;
 		}
 	}
 	if(var2== true){
-		cout << "Printeando Matriz inicializada: " <<endl;
-	 	MostrarMatriz(Matriz);
+	 MostrarMatriz(Matriz);
 	}
 }
 
 bool RevisarFila(int fila,int valor,int Matriz[][9]){
 	for(int i=0;i<9;i++){
 		if(Matriz[fila][i] == valor){
-			cout<<"El Número "<<valor<<" se encuentra en la fila n°: "<<fila<<endl;
+			cout<<"El Número "<<valor<<" se encuentra en la fila n°: "<<fila+1<<endl;
 		  return true;
 		}
 	}
-	cout<<"El Número "<<valor<<" no se encuentra en la fila n°: "<<fila<<endl;
+	cout<<"El Número "<<valor<<" no se encuentra en la fila n°: "<<fila+1<<endl;
 	return false;
 }
 bool RevisarColumna(int columna,int valor,int Matriz[][9]){
 	for(int i=0;i<9;i++){
 		if(Matriz[i][columna] == valor){
-			cout<<"El Número "<<valor<<" se encuentra en la columna n°: "<<columna<<endl;
+			cout<<"El Número "<<valor<<" se encuentra en la columna n°: "<<columna+1<<endl;
 		  return true;
 		}
 	}
-	cout<<"El Número "<<valor<<" no se encuentra en la fila n°: "<<columna<<endl;
+	cout<<"El Número "<<valor<<" no se encuentra en la fila n°: "<<columna+1<<endl;
 	return false;
 }
 /*
@@ -133,7 +127,7 @@ bool RevisarSubmatriz(int SubMatriz,int valor,int Matriz[][9]){
 int main(int argc, char* argv[]){
 	int Matriz[9][9];
 	InicializarMatriz(Matriz);
-	LlenarMatriz(argv[9],Matriz);
+	LlenarMatriz(argv[1],Matriz);
 	int fila, columna, SubMatriz, opcion, valor;
 	bool var = true;
 	while(var){
@@ -149,16 +143,17 @@ int main(int argc, char* argv[]){
 					cin>>fila;
 					cout<<"Ingrese valor a encontrar: "<<endl;
 					cin>>valor;
-					RevisarFila(fila,valor,Matriz);
+					RevisarFila(fila-1,valor,Matriz);
 					break;
 			case 2: cout<<"Funcion Revisar Columna:"<<endl;
 					cout<<"Ingrese columna a revisar: "<<endl;
 					cin>>columna;
 					cout<<"Ingrese valor a buscar"<<endl;
 					cin>>valor;
-					RevisarColumna(columna,valor,Matriz);
+					RevisarColumna(columna-1,valor,Matriz);
 					break;
 			case 3: cout<<"Funcion Submatriz"<<endl;
+					cout<<"Ingrese submatriz a revisar: "<<endl;
 					cin>>SubMatriz;
 					cout<<"Ingrese valor a buscar en la submatriz: "<<endl;
 					cin>>valor;
